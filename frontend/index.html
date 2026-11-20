@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Campus Voting dApp</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="bubble-mark" aria-hidden="true"></span>
+      <span class="brand-name">Campus Voting</span>
+    </div>
+    <div class="wallet">
+      <span id="networkBadge" class="badge" hidden></span>
+      <span id="walletStatus" class="wallet-text">Wallet not connected</span>
+      <button id="logoutButton" class="btn btn-quiet" hidden>Logout</button>
+    </div>
+  </header>
+
+  <main>
+    <p id="notice" class="notice" role="status" aria-live="polite" hidden></p>
+
+    <!-- LOGIN -->
+    <section id="viewLogin">
+      <div class="hero">
+        <h1>One wallet, one vote.</h1>
+        <p class="lead">Register, wait for approval, then cast your ballot. Every vote is recorded on the blockchain and counted when the Electoral Admin closes the election.</p>
+      </div>
+      <div class="login-grid">
+        <article class="panel">
+          <h2>Voters</h2>
+          <div class="tabs" role="tablist">
+            <button id="tabLogin" class="tab tab-active" role="tab" aria-selected="true">Log in</button>
+            <button id="tabSignup" class="tab" role="tab" aria-selected="false">Sign up</button>
+          </div>
+
+          <div id="loginPane">
+            <p>Already signed up? Connect your MetaMask wallet to see your status, vote, or view the results.</p>
+            <button id="loginVoterButton" class="btn btn-primary">Log in</button>
+          </div>
+
+          <div id="signupPane" hidden>
+            <p>New here? Sign up with your name and student ID. Your wallet is your account. The Electoral Admin then approves you.</p>
+            <div class="field-row">
+              <label>Full name
+                <input id="regName" type="text" placeholder="e.g. Juan Dela Cruz" autocomplete="off" />
+              </label>
+              <label>Student ID
+                <input id="regStudentId" type="text" placeholder="e.g. 2023-00123" autocomplete="off" />
+              </label>
+            </div>
+            <button id="signUpButton" class="btn btn-primary">Sign up</button>
+          </div>
+        </article>
+        <article class="panel panel-deep">
+          <h2>Electoral Admin</h2>
+          <p>Use the wallet that deployed the contract to add candidates, approve voters, and open or close voting.</p>
+          <button id="loginAdminButton" class="btn btn-light">Admin log in</button>
+        </article>
+      </div>
+    </section>
+
+    <!-- VOTER -->
+    <section id="viewVoter" hidden>
+      <div id="phaseBannerVoter" class="phase"></div>
+
+      <article class="panel" id="voterStatusPanel">
+        <h2>Your voter status</h2>
+        <p id="voterStatus"></p>
+      </article>
+
+      <article class="panel" id="ballotPanel">
+        <h2>Candidates</h2>
+        <p id="ballotHint" class="muted"></p>
+        <div id="ballotList" class="ballot"></div>
+      </article>
+
+      <article class="panel" id="voterResultsPanel">
+        <h2>Results</h2>
+        <div id="voterResults"></div>
+      </article>
+    </section>
+
+    <!-- ADMIN -->
+    <section id="viewAdmin" hidden>
+      <div id="phaseBannerAdmin" class="phase"></div>
+
+      <article class="panel">
+        <h2>Election control</h2>
+        <div class="stats">
+          <div><span id="statCandidates" class="stat-num">0</span><span class="stat-label">candidates</span></div>
+          <div><span id="statRegistered" class="stat-num">0</span><span class="stat-label">registered voters</span></div>
+          <div><span id="statVotes" class="stat-num">0</span><span class="stat-label">votes cast</span></div>
+        </div>
+        <div class="btn-row">
+          <button id="startElectionButton" class="btn btn-primary">Start election</button>
+          <button id="endElectionButton" class="btn btn-outline">Close election</button>
+        </div>
+        <p id="controlHint" class="muted"></p>
+      </article>
+
+      <article class="panel" id="addPanel">
+        <h2>Add a candidate</h2>
+        <div class="field-row">
+          <label>Candidate name
+            <input id="candidateName" type="text" placeholder="Juan Dela Cruz" autocomplete="off" />
+          </label>
+          <label>Position
+            <input id="candidatePosition" type="text" placeholder="Student Council President" autocomplete="off" />
+          </label>
+        </div>
+        <button id="addCandidateButton" class="btn btn-primary">Add candidate</button>
+      </article>
+
+      <article class="panel" id="voterPanel">
+        <h2>Voter approvals</h2>
+        <p class="muted">Registered voters appear below. Approve a wallet so it can vote. You can also approve any wallet address directly.</p>
+        <div id="registrantList" class="registrants"></div>
+        <div class="field-row field-row-single">
+          <label>Wallet address
+            <input id="voterAddress" type="text" placeholder="0x…" autocomplete="off" spellcheck="false" />
+          </label>
+        </div>
+        <button id="authorizeVoterButton" class="btn btn-outline">Authorize wallet</button>
+      </article>
+
+      <article class="panel">
+        <h2>Candidates and results</h2>
+        <div id="adminResults"></div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="foot">Campus Voting dApp · Solidity · Ethers.js · MetaMask · Sepolia testnet</footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

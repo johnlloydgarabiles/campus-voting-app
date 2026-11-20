@@ -1,0 +1,2 @@
+Network: Sepolia testnet
+Deployer (Electoral Admin) wallet: 0x6B3bD896c403E99C5DBbf98Da8af1d9a97a1CdA9
